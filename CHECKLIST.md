@@ -55,7 +55,7 @@ define-goal 明确目标
 
 ### Week 2: Prompt & Structured Output
 
-- [ ] W2-T1: 设计 ParentingAdvice 结构化输出
+- [x] W2-T1: 设计 ParentingAdvice 结构化输出
   - 目标：把 Agent 的回答从自然语言变成可验证结构。
   - 你要理解：JSON schema、Pydantic、类型约束、输出契约。
   - 你要实现：`ParentingAdvice`、`RiskLevel`、`AdviceCategory`。
@@ -63,7 +63,7 @@ define-goal 明确目标
   - Obsidian 笔记：新增 `结构化输出`。
   - 复盘问题：结构化输出如何降低 Agent 的不可控性？
 
-- [ ] W2-T2: 拆分 Prompt 职责
+- [x] W2-T2: 拆分 Prompt 职责
   - 目标：把 prompt 设计成可维护的系统接口。
   - 你要理解：角色、任务、上下文、约束、输出格式、示例。
   - 你要实现：system prompt、task prompt、format prompt 的分层模板。
@@ -71,7 +71,7 @@ define-goal 明确目标
   - Obsidian 笔记：新增 `Prompt 与结构化输出`。
   - 复盘问题：prompt 和传统代码里的接口契约有什么相似和不同？
 
-- [ ] W2-T3: 实现输出校验与失败重试
+- [x] W2-T3: 实现输出校验与失败重试
   - 目标：让 Agent 面对坏输出时能恢复。
   - 你要理解：validation、retry、repair prompt、fallback。
   - 你要实现：非法 JSON 检测、重试或修复流程。
@@ -81,7 +81,7 @@ define-goal 明确目标
 
 ### Week 3: Agent Core
 
-- [ ] W3-T1: 实现 Intent Router
+- [x] W3-T1: 实现 Intent Router
   - 目标：让 Agent 先判断问题类型，再决定处理方式。
   - 你要理解：intent classification、routing、workflow。
   - 你要实现：学习问题、情绪问题、亲子沟通、行为习惯、学校关系、高风险问题分类。

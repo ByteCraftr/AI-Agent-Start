@@ -141,6 +141,28 @@ def validate_enum(enum_type: type[EnumT], raw_value: Any, field_name: str) -> En
         ) from exc
 
 
+def validate_object_shape(raw_output: Any) -> dict[str, Any]:
+    """校验模型输出的顶层 JSON 形状。
+
+    对应 JSON Schema 里的两个字段：
+    - "type": "object"：模型输出必须是 JSON object，对应 Python 的 dict。
+    - "additionalProperties": False：不能出现 schema 没定义的额外字段。
+
+    这是一个重要工程点：schema 只是声明契约，本地校验函数才真正执行契约。
+    """
+
+    if not isinstance(raw_output, dict):
+        raise ValueError("model output must be a JSON object.")
+
+    schema = build_json_schema()
+    allowed_fields = set(schema["properties"])
+    extra_fields = set(raw_output) - allowed_fields
+    if extra_fields:
+        raise ValueError(f"unexpected fields: {sorted(extra_fields)}.")
+
+    return raw_output
+
+
 def build_json_schema() -> dict[str, Any]:
     """生成给模型和工程系统共用的 JSON Schema。
 
@@ -154,7 +176,11 @@ def build_json_schema() -> dict[str, Any]:
     """
 
     return {
+        # 顶层必须是 JSON object，也就是 Python 里的 dict。
+        # 这能拒绝模型只返回一段字符串、数组或数字。
         "type": "object",
+        # 不允许输出 schema 没声明的字段。
+        # 这能避免模型临时添加 confidence、diagnosis 等业务系统不认识的字段。
         "additionalProperties": False,
         "required": [
             "category",
@@ -191,7 +217,7 @@ def build_json_schema() -> dict[str, Any]:
     }
 
 
-def validate_parenting_advice(raw_output: dict[str, Any]) -> ParentingAdvice:
+def validate_parenting_advice(raw_output: Any) -> ParentingAdvice:
     """把一个模型输出 dict 校验成 ParentingAdvice。
 
     在真实 Agent 里，这个函数站在 LLM 和业务系统之间：
@@ -200,26 +226,28 @@ def validate_parenting_advice(raw_output: dict[str, Any]) -> ParentingAdvice:
     - 业务系统只消费校验通过的 ParentingAdvice。
     """
 
+    data = validate_object_shape(raw_output)
+
     category = validate_enum(
         AdviceCategory,
-        raw_output.get("category"),
+        data.get("category"),
         "category",
     )
     risk_level = validate_enum(
         RiskLevel,
-        raw_output.get("risk_level"),
+        data.get("risk_level"),
         "risk_level",
     )
 
     return ParentingAdvice(
         category=category,
         risk_level=risk_level,
-        summary=require_non_empty_text(raw_output, "summary"),
-        possible_reasons=require_non_empty_text_list(raw_output, "possible_reasons"),
-        action_steps=require_non_empty_text_list(raw_output, "action_steps"),
-        communication_script=require_non_empty_text(raw_output, "communication_script"),
+        summary=require_non_empty_text(data, "summary"),
+        possible_reasons=require_non_empty_text_list(data, "possible_reasons"),
+        action_steps=require_non_empty_text_list(data, "action_steps"),
+        communication_script=require_non_empty_text(data, "communication_script"),
         professional_boundary=require_non_empty_text(
-            raw_output,
+            data,
             "professional_boundary",
         ),
     )
@@ -254,7 +282,18 @@ INVALID_MODEL_OUTPUT: dict[str, Any] = {
 }
 
 
-def print_validation_result(name: str, raw_output: dict[str, Any]) -> None:
+EXTRA_FIELD_MODEL_OUTPUT: dict[str, Any] = {
+    **VALID_MODEL_OUTPUT,
+    "diagnosis": "孩子可能有注意力问题",  # 非法：schema 没有声明这个字段。
+}
+
+
+NON_OBJECT_MODEL_OUTPUT = [
+    "孩子写作业拖延，建议先沟通。"
+]  # 非法：顶层不是 JSON object。
+
+
+def print_validation_result(name: str, raw_output: Any) -> None:
     """打印一个样例的校验结果，便于命令行观察。"""
 
     print(f"\n=== {name} ===")
@@ -278,6 +317,8 @@ def main() -> int:
 
     print_validation_result("valid model output", VALID_MODEL_OUTPUT)
     print_validation_result("invalid model output", INVALID_MODEL_OUTPUT)
+    print_validation_result("extra field model output", EXTRA_FIELD_MODEL_OUTPUT)
+    print_validation_result("non-object model output", NON_OBJECT_MODEL_OUTPUT)
     return 0
 
 
