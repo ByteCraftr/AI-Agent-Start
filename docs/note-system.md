@@ -19,10 +19,30 @@ notes/000 AI Agent 学习首页.md
 ## 目录分工
 
 - `notes/`：长期概念笔记和 Obsidian 首页。
+- `notes/glossary/`：短术语表。建议分为核心术语和学习过程中遇到的临时术语。
 - `notes/templates/`：每日学习、概念、决策模板。
 - `weekly-reviews/`：每周复盘。
 - `product/`：Parenting Copilot 的产品和架构资产。
 - `labs/`：代码实验，不强行写成笔记。
+
+## Inbox -> Curated 笔记规则
+
+学习资料默认分成“收集”和“整理”两层：
+
+- Inbox：学习过程中临时遇到、还没完全判断重要性的内容，先低成本记录下来。
+- Curated：已经理解、确认重要、能够归入长期知识体系的内容，再整理成稳定笔记。
+
+术语表建议使用两个文件：
+
+```text
+notes/glossary/ai-core-terms.md
+notes/glossary/my-learning-terms.md
+```
+
+- `ai-core-terms.md`：AI Agent 主干术语，分类稳定，用于复习和构建体系。
+- `my-learning-terms.md`：平常学习和讨论中遇到的新词，先记录来源、场景和初步解释。
+
+当用户要求添加术语时，先判断它更适合进入核心术语表还是学习收集表；如果不确定，先进入 `my-learning-terms.md`，后续理解稳定后再迁移或同步到 `ai-core-terms.md`。
 
 ## 学习闭环
 

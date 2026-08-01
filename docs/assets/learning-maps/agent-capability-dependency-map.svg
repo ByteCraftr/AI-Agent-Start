@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+<title id="title">AI Agent 能力依赖图</title><desc id="desc">Parenting Copilot 的能力从 LLM 基础、结构化输出、安全边界，发展到 Agent Core、Tool、Memory、RAG、Evaluation 和产品化。</desc>
+<defs>
+  <style>
+    .bg{fill:#f8fafc}.title{font:700 26px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172033}.sub{font:400 14px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.label{font:700 16px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172033}.small{font:400 13px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}.node{stroke:#cbd5e1;stroke-width:1.3}.core{fill:#dbeafe}.flow{fill:#dcfce7}.reliable{fill:#fef3c7}.safety{fill:#fee2e2}.product{fill:#ede9fe}.muted{fill:#e2e8f0}.root{fill:#ccfbf1;stroke:#5eead4}.line{stroke:#64748b;stroke-width:2.2;fill:none}.soft{stroke:#cbd5e1;stroke-width:1.4;fill:none}.band{fill:#ffffff;stroke:#d7dee8;stroke-width:1.4}.badge{fill:#f1f5f9;stroke:#d7dee8;stroke-width:1}.dot{stroke:#f8fafc;stroke-width:4}
+  </style>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#64748b"/></marker>
+</defs>
+<rect class="bg" width="1200" height="820" rx="24"/>
+<text class="title" x="600" y="52" text-anchor="middle">AI Agent 能力依赖图</text>
+<text class="sub" x="600" y="78" text-anchor="middle">从基础能力逐层长成可靠、可评估、有安全边界的 Parenting Copilot</text>
+<rect class="node root" x="380" y="112" width="440" height="78" rx="18"/><text class="label" x="600" y="146" text-anchor="middle">Parenting Copilot</text><text class="small" x="600" y="171" text-anchor="middle">可靠、可评估、有安全边界的亲子教育 Agent</text>
+<path class="line" d="M600 192 C600 222 600 234 600 258" marker-end="url(#arrow)"/>
+<rect class="node core" x="78" y="260" width="220" height="92" rx="15"/><text class="label" x="188" y="296" text-anchor="middle">LLM 调用基础</text><text class="small" x="188" y="324" text-anchor="middle">请求结构 / 参数 / 错误</text>
+<rect class="node core" x="350" y="260" width="220" height="92" rx="15"/><text class="label" x="460" y="296" text-anchor="middle">Prompt 分层</text><text class="small" x="460" y="324" text-anchor="middle">角色 / 任务 / 约束</text>
+<rect class="node core" x="622" y="260" width="220" height="92" rx="15"/><text class="label" x="732" y="296" text-anchor="middle">结构化输出</text><text class="small" x="732" y="324" text-anchor="middle">Schema / 校验 / 重试</text>
+<rect class="node safety" x="894" y="260" width="220" height="92" rx="15"/><text class="label" x="1004" y="296" text-anchor="middle">安全边界</text><text class="small" x="1004" y="324" text-anchor="middle">风险识别 / 升级策略</text>
+<path class="line" d="M188 354 C188 394 312 405 355 428" marker-end="url(#arrow)"/><path class="line" d="M460 354 C460 394 460 404 460 428" marker-end="url(#arrow)"/><path class="line" d="M732 354 C732 394 598 405 565 428" marker-end="url(#arrow)"/><path class="line" d="M1004 354 C1004 416 796 425 780 466" marker-end="url(#arrow)"/>
+<rect class="node flow" x="232" y="430" width="202" height="88" rx="15"/><text class="label" x="333" y="464" text-anchor="middle">Intent Router</text><text class="small" x="333" y="492" text-anchor="middle">分类后选择流程</text>
+<rect class="node flow" x="500" y="430" width="202" height="88" rx="15"/><text class="label" x="601" y="464" text-anchor="middle">信息充分性</text><text class="small" x="601" y="492" text-anchor="middle">缺失槽位与追问</text>
+<rect class="node flow" x="768" y="430" width="202" height="88" rx="15"/><text class="label" x="869" y="464" text-anchor="middle">Agent Loop</text><text class="small" x="869" y="492" text-anchor="middle">observe / reason / act</text>
+<path class="line" d="M434 474 H500" marker-end="url(#arrow)"/><path class="line" d="M702 474 H768" marker-end="url(#arrow)"/>
+<path class="line" d="M333 520 C333 562 333 570 333 594" marker-end="url(#arrow)"/><path class="line" d="M601 520 C601 562 512 574 512 594" marker-end="url(#arrow)"/><path class="line" d="M869 520 C869 562 786 574 760 594" marker-end="url(#arrow)"/><path class="line" d="M869 520 C869 562 1000 574 1010 594" marker-end="url(#arrow)"/>
+<rect class="node reliable" x="232" y="596" width="202" height="86" rx="15"/><text class="label" x="333" y="630" text-anchor="middle">Tool Calling</text><text class="small" x="333" y="657" text-anchor="middle">工具 schema / 回填</text>
+<rect class="node reliable" x="500" y="596" width="202" height="86" rx="15"/><text class="label" x="601" y="630" text-anchor="middle">Memory</text><text class="small" x="601" y="657" text-anchor="middle">画像 / 提取 / 确认</text>
+<rect class="node reliable" x="768" y="596" width="202" height="86" rx="15"/><text class="label" x="869" y="630" text-anchor="middle">RAG</text><text class="small" x="869" y="657" text-anchor="middle">检索 / 引用 / 依据</text>
+<rect class="node product" x="976" y="596" width="150" height="86" rx="15"/><text class="label" x="1051" y="630" text-anchor="middle">Evaluation</text><text class="small" x="1051" y="657" text-anchor="middle">样例集 / rubric</text>
+<path class="line" d="M601 684 C601 724 640 732 672 742" marker-end="url(#arrow)"/><path class="line" d="M869 684 C869 724 766 734 716 742" marker-end="url(#arrow)"/><path class="line" d="M1051 684 C1051 742 820 750 722 752" marker-end="url(#arrow)"/>
+<rect class="node product" x="472" y="730" width="300" height="58" rx="16"/><text class="label" x="622" y="765" text-anchor="middle">产品化与 Android 集成</text>
+</svg>

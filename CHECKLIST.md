@@ -53,6 +53,16 @@ define-goal 明确目标
   - Obsidian 笔记：记录参数对比表。
   - 复盘问题：什么时候应该让模型更发散，什么时候应该更稳定？
 
+### Week 1 专题: LLM 原理 for Agent Engineering
+
+- [ ] W1-S1: 从 LLM 原理理解 Agent 设计边界
+  - 目标：理解 LLM 的工程行为边界，并把它映射到 Agent 架构设计。
+  - 你要理解：next-token prediction、token/context window、prompt as interface、结构化输出漂移、tool calling 分工、evaluation 必要性。
+  - 你要实现：完成 `notes/LLM 原理 for Agent Engineering.md` 的费曼复述，并补充 1 个 Parenting Copilot 场景映射。
+  - 验收标准：能说明为什么可靠 Agent 不能只靠 prompt，以及至少 3 个“LLM 原理 -> Agent 设计边界”的例子。
+  - Obsidian 笔记：更新 `LLM 原理 for Agent Engineering`。
+  - 复盘问题：我以前把哪些 LLM 能力误认为了确定性能力？
+
 ### Week 2: Prompt & Structured Output
 
 - [x] W2-T1: 设计 ParentingAdvice 结构化输出
@@ -89,7 +99,7 @@ define-goal 明确目标
   - Obsidian 笔记：新增 `Intent Router`。
   - 复盘问题：为什么复杂 Agent 需要路由，而不是直接回答？
 
-- [ ] W3-T2: 实现信息充分性判断与追问
+- [x] W3-T2: 实现信息充分性判断与追问
   - 目标：让 Agent 在信息不足时先追问。
   - 你要理解：clarifying questions、slot filling、多轮状态。
   - 你要实现：判断缺少年龄、持续时间、场景、家长目标时自动追问。

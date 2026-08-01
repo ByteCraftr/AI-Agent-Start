@@ -15,6 +15,7 @@
 - [x] W2-T2: 拆分 Prompt 职责
 - [x] W2-T3: 实现输出校验与失败重试
 - [x] W3-T1: 实现 Intent Router
+- [x] W3-T2: 实现信息充分性判断与追问
 
 ## 本周关键理解
 
@@ -32,6 +33,9 @@
 - 修复失败后的 fallback 不是假装成功，而是停止保存记忆、调用工具、进入正式建议卡片等危险流程，并给家长保守、可理解的下一步。
 - Intent Router 让 Agent 在生成建议前先判断问题类型，再选择不同处理流程。Router 决定“去哪儿”，Handler 决定“怎么处理”，Agent Loop 决定“按什么顺序运行”。
 - 路由规则有优先级问题：高风险信号必须优先，情绪信号也应优先于普通学习信号，否则“考试焦虑”这类问题会被普通学习流程截走。
+- 信息充分性判断让 Agent 在生成建议前先确认关键上下文是否足够。`slot filling` 定义缺什么，多轮状态记录已经补齐什么，追问策略决定下一句怎么补。
+- 追问不是为了收集所有信息，而是为了补齐会改变建议方向的关键槽位。一次最多问少量高价值问题，可以降低用户负担，也避免让对话变成表单。
+- 高风险信号必须优先于普通追问。遇到自伤、轻生、严重暴力、严重霸凌或紧急危险时，应直接进入安全响应。
 
 ## 本周代码产物
 
@@ -42,8 +46,10 @@
 - W2-T2 Prompt 分层产物：`labs/w02-structured-output/prompt_templates.py`，用于演示 system/task/format prompt 的职责拆分。
 - W2-T3 输出恢复产物：`labs/w02-structured-output/output_repair.py`，用于演示 parse、validate、有限修复和 fallback。
 - W3-T1 Intent Router 产物：`labs/w03-agent-core/intent_router.py`，用于演示用户输入到处理流程的最小分流。
+- W3-T2 信息充分性产物：`labs/w03-agent-core/context_sufficiency.py`，用于演示上下文不足时追问、信息充分时放行、高风险时进入安全响应。
 - W2-T1 概念笔记：`notes/结构化输出.md`。
 - W3-T1 概念笔记：`notes/Intent Router.md`。
+- W3-T2 概念笔记：`notes/澄清问题.md`。
 
 ## 本周卡点
 
@@ -54,6 +60,8 @@
 - 当前环境没有安装 Pydantic，因此 W2-T1 先使用标准库 `Enum`、`dataclass` 和手写校验完成最小实验；后续可以切换到 Pydantic 自动生成 JSON Schema 和校验错误。
 - LLM repair 后仍然必须再次 parse 和 validate，不能因为“已经修复过”就直接进入业务成功路径。
 - Handler 容易被误解成“执行链路本身”。更准确的边界是：Handler 是某条链路里的具体处理器，Agent Loop 才是统一入口和主编排流程。
+- slot filling 容易被误解成“尽量补足完整用户信息”。更准确的边界是：只补齐会影响下一步建议方向和安全判断的关键槽位。
+- “模糊问题体验不好”只是表层问题；更深层的工程风险是建议会泛泛、错位，甚至漏掉风险信号。
 
 ## 下周调整
 

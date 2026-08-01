@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">业务到代码阅读地图</title>
+  <desc id="desc">从真实 Parenting Copilot 案例出发，沿业务预期、Agent 流程、模块边界、关键函数、数据结构、测试样例和失败路径阅读代码。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#365067"/>
+    </marker>
+    <style>
+      .bg { fill: #f7f5ef; }
+      .title { font: 700 34px sans-serif; fill: #17212b; }
+      .subtitle { font: 400 18px sans-serif; fill: #455565; }
+      .section-title { font: 700 20px sans-serif; fill: #17212b; }
+      .label { font: 700 17px sans-serif; fill: #17212b; }
+      .body { font: 400 15px sans-serif; fill: #334252; }
+      .small { font: 400 13px sans-serif; fill: #4b5c6b; }
+      .box { fill: #ffffff; stroke: #b7c1ca; stroke-width: 1.5; rx: 8; }
+      .case { fill: #fff7df; stroke: #d2a640; }
+      .flow { fill: #eaf3ef; stroke: #6a9d7c; }
+      .module { fill: #edf2fa; stroke: #7090bd; }
+      .contract { fill: #f3ecf8; stroke: #9c78ad; }
+      .risk { fill: #fdeceb; stroke: #bf6964; }
+      .line { stroke: #365067; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #6d7b87; stroke-width: 1.7; stroke-dasharray: 7 6; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1280" height="760"/>
+  <text class="title" x="58" y="64">业务到代码阅读地图</text>
+  <text class="subtitle" x="58" y="96">先理解一个真实家长问题如何被产品处理，再沿 Agent 链路追到模块、函数、合同和测试。</text>
+
+  <rect class="box case" x="58" y="135" width="238" height="118"/>
+  <text class="label" x="82" y="172">1. 真实案例</text>
+  <text class="body" x="82" y="203">孩子考试前很焦虑，</text>
+  <text class="body" x="82" y="226">一直说自己肯定考不好。</text>
+
+  <rect class="box case" x="350" y="135" width="238" height="118"/>
+  <text class="label" x="374" y="172">2. 业务预期</text>
+  <text class="body" x="374" y="203">识别情绪问题；</text>
+  <text class="body" x="374" y="226">信息不足时先追问。</text>
+
+  <rect class="box flow" x="642" y="135" width="238" height="118"/>
+  <text class="label" x="666" y="172">3. Agent 流程</text>
+  <text class="body" x="666" y="203">observe -> reason</text>
+  <text class="body" x="666" y="226">-> act -> persist</text>
+
+  <rect class="box flow" x="934" y="135" width="238" height="118"/>
+  <text class="label" x="958" y="172">4. 当前动作</text>
+  <text class="body" x="958" y="203">ask_clarifying_question</text>
+  <text class="body" x="958" y="226">不是直接生成建议</text>
+
+  <path class="line" d="M296 194 H342"/>
+  <path class="line" d="M588 194 H634"/>
+  <path class="line" d="M880 194 H926"/>
+
+  <text class="section-title" x="58" y="316">模块映射</text>
+
+  <rect class="box module" x="58" y="344" width="220" height="108"/>
+  <text class="label" x="82" y="376">parenting_agent.py</text>
+  <text class="body" x="82" y="405">ParentingAgent.run</text>
+  <text class="small" x="82" y="429">编排主链路，像 UseCase</text>
+
+  <rect class="box module" x="318" y="344" width="220" height="108"/>
+  <text class="label" x="342" y="376">intent_router.py</text>
+  <text class="body" x="342" y="405">IntentRouter.classify</text>
+  <text class="small" x="342" y="429">只决定去哪条流程</text>
+
+  <rect class="box module" x="578" y="344" width="260" height="108"/>
+  <text class="label" x="602" y="376">context_sufficiency.py</text>
+  <text class="body" x="602" y="405">ContextSufficiencyChecker.check</text>
+  <text class="small" x="602" y="429">判断信息够不够</text>
+
+  <rect class="box module" x="878" y="344" width="220" height="108"/>
+  <text class="label" x="902" y="376">parenting_agent.py</text>
+  <text class="body" x="902" y="405">_choose_action</text>
+  <text class="small" x="902" y="429">把判断收敛成动作</text>
+
+  <path class="line" d="M278 398 H310"/>
+  <path class="line" d="M538 398 H570"/>
+  <path class="line" d="M838 398 H870"/>
+  <path class="dash" d="M1053 253 V326 C1053 336 1045 344 1035 344"/>
+
+  <text class="section-title" x="58" y="514">代码阅读时优先看的合同</text>
+
+  <rect class="box contract" x="58" y="542" width="270" height="108"/>
+  <text class="label" x="82" y="574">RouteResult</text>
+  <text class="body" x="82" y="603">intent, confidence, reason,</text>
+  <text class="body" x="82" y="626">safety_priority</text>
+
+  <rect class="box contract" x="370" y="542" width="310" height="108"/>
+  <text class="label" x="394" y="574">ContextSufficiencyResult</text>
+  <text class="body" x="394" y="603">next_step, missing_slots,</text>
+  <text class="body" x="394" y="626">clarifying_question</text>
+
+  <rect class="box contract" x="722" y="542" width="270" height="108"/>
+  <text class="label" x="746" y="574">AgentRunRecord</text>
+  <text class="body" x="746" y="603">route, context_check,</text>
+  <text class="body" x="746" y="626">action, response</text>
+
+  <rect class="box risk" x="1034" y="542" width="188" height="108"/>
+  <text class="label" x="1058" y="574">失败路径</text>
+  <text class="body" x="1058" y="603">高风险优先安全响应；</text>
+  <text class="body" x="1058" y="626">信息不足优先追问。</text>
+
+  <path class="line" d="M328 596 H362"/>
+  <path class="line" d="M680 596 H714"/>
+  <path class="line" d="M992 596 H1026"/>
+
+  <rect class="box" x="58" y="690" width="1164" height="42"/>
+  <text class="body" x="82" y="717">阅读准则：只追一条真实业务链路；链路清楚后，再解释 Python 语法和实现细节。</text>
+</svg>

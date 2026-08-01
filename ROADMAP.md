@@ -35,6 +35,20 @@ LLM 基础
 Parenting Copilot / 亲子教育 Agent
 ```
 
+## 可视化学习地图
+
+这三张图从不同角度查看同一条学习主线：
+
+- **能力依赖图**：看清哪些 Agent 能力依赖哪些前置能力。
+- **路线图**：看清三个月内的阶段节奏和主要产物。
+- **架构视角图**：看清学习内容如何落到 Parenting Copilot 的模块边界。
+
+![AI Agent 能力依赖图](docs/assets/learning-maps/agent-capability-dependency-map.svg)
+
+![AI Agent 三个月路线图](docs/assets/learning-maps/agent-learning-roadmap.svg)
+
+![Parenting Copilot Agent 架构视角图](docs/assets/learning-maps/parenting-agent-architecture-map.svg)
+
 每个阶段都要回到三层理解：
 
 ```text
@@ -105,6 +119,48 @@ Parenting Copilot 中的应用：
 - `parenting_advisor.py`。
 - LLM 调用笔记。
 - API 调用错误处理策略。
+
+## 横向专题: LLM 原理 for Agent Engineering
+
+定位：
+
+- 这是插在 Phase 1 和 Phase 2 之间的专题，不是新的大阶段。
+- 目标不是成为模型研究员，而是理解 LLM 的工程行为边界。
+- 每个原理都要映射到 Agent 设计、验证策略和 Parenting Copilot 的安全边界。
+
+核心问题：
+
+- LLM 为什么像预测器，而不是规则引擎？
+- Token、context window 和截断如何影响 Agent 可靠性？
+- 为什么 prompt 更像接口契约，而不是自然语言命令？
+- 为什么结构化输出、tool calling、memory、RAG、evaluation 和 safety 都需要程序边界？
+
+你要掌握：
+
+- Next-token prediction 的工程含义。
+- Token、上下文窗口、上下文污染和信息丢失。
+- Prompt as Interface: system、task、format、safety prompt 的职责边界。
+- 结构化输出漂移、schema validation、retry、fallback。
+- Tool calling 中“模型负责选择，代码负责执行和校验”的分工。
+- Evaluation 作为 Agent 工程质量的最低保障。
+
+推荐实验：
+
+- 对同一个问题改变上下文和输出约束，观察回答稳定性。
+- 故意给模型冲突指令，观察 system/task/format 约束的边界。
+- 构造坏 JSON、缺字段、越界建议，验证 schema 和 fallback 为什么必要。
+
+Parenting Copilot 中的应用：
+
+- 教育类建议必须区分事实、假设、建议和风险信号。
+- 信息不足时先追问，而不是直接给确定建议。
+- 高风险场景不能只依赖一句 safety prompt，要结合路由、校验、模板和人工边界。
+
+阶段产物：
+
+- `notes/LLM 原理 for Agent Engineering.md`。
+- 一组“LLM 原理 -> Agent 设计边界”的映射。
+- 后续 Prompt、Agent Core、Tool Use、Memory、RAG、Evaluation、Safety 的底层解释入口。
 
 ## Phase 2: Prompt & Structured Output
 

@@ -18,6 +18,24 @@ tags:
 
 没有它会出现什么问题？
 
+## 为什么这样解决
+
+这个方案为什么能解决问题？它相比直接回答、硬编码或人工处理有什么优势？
+
+## 它在 Agent 中的位置
+
+它属于 LLM 基础、Prompt、结构化输出、Agent Core、Tool Use、Memory、RAG、Evaluation、Safety、Product Engineering 中的哪一层？
+
+## 上下游关系
+
+上游依赖：
+
+- 
+
+下游影响：
+
+- 
+
 ## 核心机制
 
 它内部大概怎么工作？
